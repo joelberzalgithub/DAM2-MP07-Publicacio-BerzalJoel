@@ -98,7 +98,7 @@ class LayoutInfoState extends State<LayoutInfo> {
           ['Human (Empowered)', 'Male', 'Ally', 'Matthew Waterson', 'The Doom Slayer is the main protagonist of the Doom franchise, serving as the main protagonist of the original trilogy and it spin-off, Doom 64. He returns as the protagonist of Doom (2016) and Doom Eternal.']);
       await txn.rawInsert(
           'INSERT INTO characters (race, sex, status, voice_actor, description) VALUES (?, ?, ?, ?, ?)',
-          ['Makyr/Cyborg (Temporarily)', 'Male', 'Ally', 'Darin De Paul', 'Samuel Hayden is the Chairman of the UAC who oversaw the Argent energy research projects at the UAC Argent Facility. A supporting character in Doom (2016) and Doom Eternal, he helps guide the Doom Slayer. It is later revealed in The Ancient Gods that Samuel Hayden is an alias adopted by the Seraphim.']);
+          ['Maykr/Cyborg (Temporarily)', 'Male', 'Ally', 'Darin De Paul', 'Samuel Hayden is the Chairman of the UAC who oversaw the Argent energy research projects at the UAC Argent Facility. A supporting character in Doom (2016) and Doom Eternal, he helps guide the Doom Slayer. It is later revealed in The Ancient Gods that Samuel Hayden is an alias adopted by the Seraphim.']);
       await txn.rawInsert(
           'INSERT INTO characters (race, sex, status, voice_actor, description) VALUES (?, ?, ?, ?, ?)',
           ['Artificial Intelligence', 'Male', 'Ally', 'Kevin Schon', 'VEGA is an Artificial Intelligence who helps the Doom Slayer and appears in Doom (2016) and Doom Eternal. In Doom it is first heard after completing the first level and is also the announcer for the Doom Multiplayer Mode. Near the end of Doom Eternal, and confirmed in The Ancient Gods - Part One, it is revealed that VEGA is The Father.']);
@@ -107,7 +107,7 @@ class LayoutInfoState extends State<LayoutInfo> {
           ['Human/Cyborg (Formerly)', 'Female', 'Enemy', 'Abby Craden', 'Olivia Pierce is a high-ranking researcher of the UAC and the main antagonist of Doom (2016). She was the Head of Biochemical Research at the Argent Facility on Mars and a fanatical researcher of Hell. After coming into contact with Hell''s Dark Lord, Pierce made a pact with Hell to aid in their invasion.']);
       await txn.rawInsert(
           'INSERT INTO characters (race, sex, status, voice_actor, description) VALUES (?, ?, ?, ?, ?)',
-          ['Makyr', 'Female', 'Enemy', 'Nika Futterman', 'The Khan Maykr or the Supreme Maykr, is the supreme ruler of the realm of Urdak and the leader of the Maykrs, a highly advanced ancient race of alien beings. She serves as the main antagonist of Doom Eternal.']);
+          ['Maykr', 'Female', 'Enemy', 'Nika Futterman', 'The Khan Maykr or the Supreme Maykr, is the supreme ruler of the realm of Urdak and the leader of the Maykrs, a highly advanced ancient race of alien beings. She serves as the main antagonist of Doom Eternal.']);
       await txn.rawInsert(
           'INSERT INTO characters (race, sex, status, voice_actor, description) VALUES (?, ?, ?, ?, ?)',
           ['Primeval', 'Male', 'Enemy', 'Piotr Michael', 'Davoth, also known as the Dark Lord, is the title of the supreme ruler of the realm of Hell. The title appears to refer to any entity which claims dominion over Hell, with the realm''s past being divided into "ages" based on the reign of these Lords. The first Dark Lord, Davoth, serves as the main antagonist of Doom Eternal: The Ancient Gods and by extension, the entire Doom series. Though there were other dark lords, willing to take his place.']);
@@ -182,9 +182,6 @@ class LayoutInfoState extends State<LayoutInfo> {
       await txn.rawInsert(
           'INSERT INTO weapons (type, fire_mode, ammo_type, damage, description) VALUES (?, ?, ?, ?, ?)',
           ['Energy Weapon', 'Semi-Automatic', 'Argent-type Plasma', 275, 'The BFG 9000 makes a powerful comeback in Doom Eternal, found on the Phobos Base as the main power source of the BFG 10000 superweapon, which is part of the anti-demonic defense grid and is used by the Doom Slayer to shoot a hole into the surface of Mars. In gameplay, it''s observed that the reticle will also feature a counter for the amount of enemies killed by the oncoming blast.']);
-      await txn.rawInsert(
-          'INSERT INTO weapons (type, fire_mode, ammo_type, damage, description) VALUES (?, ?, ?, ?, ?)',
-          ['Super Weapon', 'Automatic', 'Argent Plasma', 150, 'The Unmaker is a weapon in Doom 64 of demonic origin, inscribed with a pentagram and made up of parts of the spine and rib bones of a demon. It fires powerful red lasers by consuming cells as ammo. The original name of the weapon is unknown and unverifiable; the community-given name "Unmaker" has long been applied to the weapon due to analogy with a similar concept in the Doom Bible. This name was made official by the 2020 re-release of the game, in an achievement.']);
     });
 
     // Desconnectar
