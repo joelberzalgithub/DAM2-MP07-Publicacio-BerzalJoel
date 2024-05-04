@@ -1,11 +1,13 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
 import 'app_data.dart';
+import 'layout_menu.dart';
 
 class LayoutInfo extends StatefulWidget {
-  const LayoutInfo({Key? key}) : super(key: key);
+  const LayoutInfo({super.key});
 
   @override
   LayoutInfoState createState() => LayoutInfoState();
@@ -13,18 +15,159 @@ class LayoutInfo extends StatefulWidget {
 
 class LayoutInfoState extends State<LayoutInfo> {
   final AppData appData = AppData();
-  
-  @override
-  Widget build(BuildContext context) {
-    throw UnimplementedError();
-  }
+  bool isBright = true;
 
+  /*
   @override
   void initState() {
     super.initState();
     initDatabase();
   }
+  */
 
+  void toggleBrightness() {
+    setState(() {
+      isBright = !isBright;
+    });
+  }
+
+  void navigateToLayoutMenu(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const LayoutMenu()),
+    );
+  }
+  
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.only(left: 5.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  IconButton(
+                    icon: const Icon(Icons.arrow_back),
+                    color: const Color.fromARGB(255, 200, 13, 0),
+                    onPressed: () {
+                      navigateToLayoutMenu(context);
+                    },
+                  ),
+                  GestureDetector(
+                    onTap: toggleBrightness,
+                    child: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Icon(
+                        CupertinoIcons.lightbulb,
+                        size: 36,
+                        color: isBright ? Colors.black : Colors.white,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const Divider(
+              color: Color.fromARGB(255, 200, 13, 0),
+              thickness: 5,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  CupertinoButton(
+                    padding: EdgeInsets.zero,
+                    child: const Icon(
+                      CupertinoIcons.back,
+                      color: Color.fromARGB(255, 200, 13, 0),
+                    ),
+                    onPressed: () {
+                      // Add functionality for the button on the left if needed.
+                    },
+                  ),
+                  const Text(
+                    'Characters',
+                    style: TextStyle(
+                      color: Color.fromARGB(255, 200, 13, 0),
+                      fontSize: 28.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  CupertinoButton(
+                    padding: EdgeInsets.zero,
+                    child: const Icon(
+                      CupertinoIcons.forward,
+                      color: Color.fromARGB(255, 200, 13, 0),
+                    ),
+                    onPressed: () {
+                      // Add functionality for the button on the right if needed.
+                    },
+                  ),
+                ],
+              ),
+            ),
+            const Divider(
+              color: Color.fromARGB(255, 200, 13, 0),
+              thickness: 5,
+            ),
+            Image.asset(
+              './assets/characters/slayer_1.jpg',
+              width: 400,
+              height: 400,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  CupertinoButton(
+                    padding: EdgeInsets.zero,
+                    child: const Icon(
+                      CupertinoIcons.back,
+                      color: Color.fromARGB(255, 200, 13, 0),
+                    ),
+                    onPressed: () {
+                      // Add functionality for the button on the left if needed.
+                    },
+                  ),
+                  const Text(
+                    'Doom Slayer (Doom I - II)',
+                    style: TextStyle(
+                      color: Color.fromARGB(255, 200, 13, 0),
+                      fontSize: 14.0,
+                    ),
+                  ),
+                  CupertinoButton(
+                    padding: EdgeInsets.zero,
+                    child: const Icon(
+                      CupertinoIcons.forward,
+                      color: Color.fromARGB(255, 200, 13, 0),
+                    ),
+                    onPressed: () {
+                      // Add functionality for the button on the right if needed.
+                    },
+                  ),
+                ],
+              ),
+            ),
+            const Divider(
+              color: Color.fromARGB(255, 200, 13, 0),
+              thickness: 5,
+            ),
+          ],
+        ),
+      ),
+      backgroundColor: isBright ? Colors.white : Colors.black,
+    );
+  }
+}
+
+/*
   Future<void> initDatabase() async {
     String dbPath = join(await getDatabasesPath(), 'doom.db');
 
@@ -461,3 +604,4 @@ class LayoutInfoState extends State<LayoutInfo> {
     await database.close();
   }
 }
+*/
