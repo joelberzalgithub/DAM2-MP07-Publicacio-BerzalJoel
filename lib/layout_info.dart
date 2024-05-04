@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
+import 'app_data.dart';
 
 class LayoutInfo extends StatefulWidget {
   const LayoutInfo({Key? key}) : super(key: key);
@@ -11,6 +12,8 @@ class LayoutInfo extends StatefulWidget {
 }
 
 class LayoutInfoState extends State<LayoutInfo> {
+  final AppData appData = AppData();
+  
   @override
   Widget build(BuildContext context) {
     throw UnimplementedError();
@@ -182,6 +185,276 @@ class LayoutInfoState extends State<LayoutInfo> {
       await txn.rawInsert(
           'INSERT INTO weapons (type, fire_mode, ammo_type, damage, description) VALUES (?, ?, ?, ?, ?)',
           ['Energy Weapon', 'Semi-Automatic', 'Argent-type Plasma', 275, 'The BFG 9000 makes a powerful comeback in Doom Eternal, found on the Phobos Base as the main power source of the BFG 10000 superweapon, which is part of the anti-demonic defense grid and is used by the Doom Slayer to shoot a hole into the surface of Mars. In gameplay, it''s observed that the reticle will also feature a counter for the amount of enemies killed by the oncoming blast.']);
+    });
+
+    // Inserir imatges de personatges
+    await database.transaction((txn) async {
+      await txn.rawInsert(
+          'INSERT INTO images (id_character, id_demon, id_weapon, name, content) VALUES (?, ?, ?, ?, ?)',
+          [1, null, null, 'Doom Slayer (Doom I - II)', appData.convertToBase64("slayer_1.jpg")]);
+      await txn.rawInsert(
+          'INSERT INTO images (id_character, id_demon, id_weapon, name, content) VALUES (?, ?, ?, ?, ?)',
+          [1, null, null, 'Doom Slayer (Doom 3)', appData.convertToBase64("slayer_2.jpg")]);
+      await txn.rawInsert(
+          'INSERT INTO images (id_character, id_demon, id_weapon, name, content) VALUES (?, ?, ?, ?, ?)',
+          [1, null, null, 'Doom Slayer (Doom)', appData.convertToBase64("slayer_3.jpg")]);
+      await txn.rawInsert(
+          'INSERT INTO images (id_character, id_demon, id_weapon, name, content) VALUES (?, ?, ?, ?, ?)',
+          [1, null, null, 'Doom Slayer (Doom Eternal)', appData.convertToBase64("slayer_4.jpg")]);
+      await txn.rawInsert(
+          'INSERT INTO images (id_character, id_demon, id_weapon, name, content) VALUES (?, ?, ?, ?, ?)',
+          [2, null, null, 'Samuel Hayden (Doom)', appData.convertToBase64("samuel_1.jpg")]);
+      await txn.rawInsert(
+          'INSERT INTO images (id_character, id_demon, id_weapon, name, content) VALUES (?, ?, ?, ?, ?)',
+          [2, null, null, 'Samuel Hayden (Doom Eternal)', appData.convertToBase64("samuel_2.png")]);
+      await txn.rawInsert(
+          'INSERT INTO images (id_character, id_demon, id_weapon, name, content) VALUES (?, ?, ?, ?, ?)',
+          [3, null, null, 'Vega (Doom)', appData.convertToBase64("vega_1.jpg")]);
+      await txn.rawInsert(
+          'INSERT INTO images (id_character, id_demon, id_weapon, name, content) VALUES (?, ?, ?, ?, ?)',
+          [3, null, null, 'Vega (Doom Eternal)', appData.convertToBase64("vega_2.png")]);
+      await txn.rawInsert(
+          'INSERT INTO images (id_character, id_demon, id_weapon, name, content) VALUES (?, ?, ?, ?, ?)',
+          [4, null, null, 'Olivia Pierce', appData.convertToBase64("olivia.png")]);
+      await txn.rawInsert(
+          'INSERT INTO images (id_character, id_demon, id_weapon, name, content) VALUES (?, ?, ?, ?, ?)',
+          [5, null, null, 'Khan Maykr', appData.convertToBase64("khan.jpg")]);
+      await txn.rawInsert(
+          'INSERT INTO images (id_character, id_demon, id_weapon, name, content) VALUES (?, ?, ?, ?, ?)',
+          [6, null, null, 'Dark Lord', appData.convertToBase64("lord.jpg")]);
+    });
+
+    // Inserir imatges de dimonis
+    await database.transaction((txn) async {
+      await txn.rawInsert(
+          'INSERT INTO images (id_character, id_demon, id_weapon, name, content) VALUES (?, ?, ?, ?, ?)',
+          [null, 1, null, 'Zombie Soldier (Doom I - II)', appData.convertToBase64("zombieman_1.png")]);
+      await txn.rawInsert(
+          'INSERT INTO images (id_character, id_demon, id_weapon, name, content) VALUES (?, ?, ?, ?, ?)',
+          [null, 1, null, 'Zombie Soldier (Doom 3)', appData.convertToBase64("zombieman_2.png")]);
+      await txn.rawInsert(
+          'INSERT INTO images (id_character, id_demon, id_weapon, name, content) VALUES (?, ?, ?, ?, ?)',
+          [null, 1, null, 'Zombie Soldier (Doom)', appData.convertToBase64("zombieman_3.png")]);
+      await txn.rawInsert(
+          'INSERT INTO images (id_character, id_demon, id_weapon, name, content) VALUES (?, ?, ?, ?, ?)',
+          [null, 1, null, 'Zombie Soldier (Doom Eternal)', appData.convertToBase64("zombieman_4.jpg")]);
+      await txn.rawInsert(
+          'INSERT INTO images (id_character, id_demon, id_weapon, name, content) VALUES (?, ?, ?, ?, ?)',
+          [null, 2, null, 'Imp (Doom I - II)', appData.convertToBase64("imp_1.png")]);
+      await txn.rawInsert(
+          'INSERT INTO images (id_character, id_demon, id_weapon, name, content) VALUES (?, ?, ?, ?, ?)',
+          [null, 2, null, 'Imp (Doom 3)', appData.convertToBase64("imp_2.png")]);
+      await txn.rawInsert(
+          'INSERT INTO images (id_character, id_demon, id_weapon, name, content) VALUES (?, ?, ?, ?, ?)',
+          [null, 2, null, 'Imp (Doom)', appData.convertToBase64("imp_3.png")]);
+      await txn.rawInsert(
+          'INSERT INTO images (id_character, id_demon, id_weapon, name, content) VALUES (?, ?, ?, ?, ?)',
+          [null, 2, null, 'Imp (Doom Eternal)', appData.convertToBase64("imp_4.png")]);
+      await txn.rawInsert(
+          'INSERT INTO images (id_character, id_demon, id_weapon, name, content) VALUES (?, ?, ?, ?, ?)',
+          [null, 3, null, 'Pinky (Doom I - II)', appData.convertToBase64("pinky_1.png")]);
+      await txn.rawInsert(
+          'INSERT INTO images (id_character, id_demon, id_weapon, name, content) VALUES (?, ?, ?, ?, ?)',
+          [null, 3, null, 'Pinky (Doom 3)', appData.convertToBase64("pinky_2.png")]);
+      await txn.rawInsert(
+          'INSERT INTO images (id_character, id_demon, id_weapon, name, content) VALUES (?, ?, ?, ?, ?)',
+          [null, 3, null, 'Pinky (Doom)', appData.convertToBase64("pinky_3.png")]);
+      await txn.rawInsert(
+          'INSERT INTO images (id_character, id_demon, id_weapon, name, content) VALUES (?, ?, ?, ?, ?)',
+          [null, 3, null, 'Pinky (Doom Eternal)', appData.convertToBase64("pinky_4.jpg")]);
+      await txn.rawInsert(
+          'INSERT INTO images (id_character, id_demon, id_weapon, name, content) VALUES (?, ?, ?, ?, ?)',
+          [null, 4, null, 'Cacodemon (Doom I - II)', appData.convertToBase64("cacodemon_1.png")]);
+      await txn.rawInsert(
+          'INSERT INTO images (id_character, id_demon, id_weapon, name, content) VALUES (?, ?, ?, ?, ?)',
+          [null, 4, null, 'Cacodemon (Doom 3)', appData.convertToBase64("cacodemon_2.png")]);
+      await txn.rawInsert(
+          'INSERT INTO images (id_character, id_demon, id_weapon, name, content) VALUES (?, ?, ?, ?, ?)',
+          [null, 4, null, 'Cacodemon (Doom)', appData.convertToBase64("cacodemon_3.png")]);
+      await txn.rawInsert(
+          'INSERT INTO images (id_character, id_demon, id_weapon, name, content) VALUES (?, ?, ?, ?, ?)',
+          [null, 4, null, 'Cacodemon (Doom Eternal)', appData.convertToBase64("cacodemon_4.png")]);
+      await txn.rawInsert(
+          'INSERT INTO images (id_character, id_demon, id_weapon, name, content) VALUES (?, ?, ?, ?, ?)',
+          [null, 5, null, 'Revenant (Doom I - II)', appData.convertToBase64("revenant_1.png")]);
+      await txn.rawInsert(
+          'INSERT INTO images (id_character, id_demon, id_weapon, name, content) VALUES (?, ?, ?, ?, ?)',
+          [null, 5, null, 'Revenant (Doom 3)', appData.convertToBase64("revenant_2.png")]);
+      await txn.rawInsert(
+          'INSERT INTO images (id_character, id_demon, id_weapon, name, content) VALUES (?, ?, ?, ?, ?)',
+          [null, 5, null, 'Revenant (Doom)', appData.convertToBase64("revenant_3.png")]);
+      await txn.rawInsert(
+          'INSERT INTO images (id_character, id_demon, id_weapon, name, content) VALUES (?, ?, ?, ?, ?)',
+          [null, 5, null, 'Revenant (Doom Eternal)', appData.convertToBase64("revenant_4.jpg")]);
+      await txn.rawInsert(
+          'INSERT INTO images (id_character, id_demon, id_weapon, name, content) VALUES (?, ?, ?, ?, ?)',
+          [null, 6, null, 'Mancubus (Doom I - II)', appData.convertToBase64("mancubus_1.png")]);
+      await txn.rawInsert(
+          'INSERT INTO images (id_character, id_demon, id_weapon, name, content) VALUES (?, ?, ?, ?, ?)',
+          [null, 6, null, 'Mancubus (Doom 3)', appData.convertToBase64("mancubus_2.png")]);
+      await txn.rawInsert(
+          'INSERT INTO images (id_character, id_demon, id_weapon, name, content) VALUES (?, ?, ?, ?, ?)',
+          [null, 6, null, 'Mancubus (Doom)', appData.convertToBase64("mancubus_3.png")]);
+      await txn.rawInsert(
+          'INSERT INTO images (id_character, id_demon, id_weapon, name, content) VALUES (?, ?, ?, ?, ?)',
+          [null, 6, null, 'Mancubus (Doom Eternal)', appData.convertToBase64("mancubus_4.jpg")]);
+      await txn.rawInsert(
+          'INSERT INTO images (id_character, id_demon, id_weapon, name, content) VALUES (?, ?, ?, ?, ?)',
+          [null, 7, null, 'Arachnotron (Doom II)', appData.convertToBase64("arachnotron_1.png")]);
+      await txn.rawInsert(
+          'INSERT INTO images (id_character, id_demon, id_weapon, name, content) VALUES (?, ?, ?, ?, ?)',
+          [null, 7, null, 'Arachnotron (Doom Eternal)', appData.convertToBase64("arachnotron_2.jpg")]);
+      await txn.rawInsert(
+          'INSERT INTO images (id_character, id_demon, id_weapon, name, content) VALUES (?, ?, ?, ?, ?)',
+          [null, 8, null, 'Hell Knight (Doom II)', appData.convertToBase64("knight_1.png")]);
+      await txn.rawInsert(
+          'INSERT INTO images (id_character, id_demon, id_weapon, name, content) VALUES (?, ?, ?, ?, ?)',
+          [null, 8, null, 'Hell Knight (Doom 3)', appData.convertToBase64("knight_2.png")]);
+      await txn.rawInsert(
+          'INSERT INTO images (id_character, id_demon, id_weapon, name, content) VALUES (?, ?, ?, ?, ?)',
+          [null, 8, null, 'Hell Knight (Doom)', appData.convertToBase64("knight_3.png")]);
+      await txn.rawInsert(
+          'INSERT INTO images (id_character, id_demon, id_weapon, name, content) VALUES (?, ?, ?, ?, ?)',
+          [null, 8, null, 'Hell Knight (Doom Eternal)', appData.convertToBase64("knight_4.png")]);
+      await txn.rawInsert(
+          'INSERT INTO images (id_character, id_demon, id_weapon, name, content) VALUES (?, ?, ?, ?, ?)',
+          [null, 9, null, 'Baron of Hell (Doom I - II)', appData.convertToBase64("baron_1.png")]);
+      await txn.rawInsert(
+          'INSERT INTO images (id_character, id_demon, id_weapon, name, content) VALUES (?, ?, ?, ?, ?)',
+          [null, 9, null, 'Baron of Hell (Doom)', appData.convertToBase64("baron_2.png")]);
+      await txn.rawInsert(
+          'INSERT INTO images (id_character, id_demon, id_weapon, name, content) VALUES (?, ?, ?, ?, ?)',
+          [null, 9, null, 'Baron of Hell (Doom Eternal)', appData.convertToBase64("baron_3.jpg")]);
+      await txn.rawInsert(
+          'INSERT INTO images (id_character, id_demon, id_weapon, name, content) VALUES (?, ?, ?, ?, ?)',
+          [null, 10, null, 'Cyberdemon (Doom I - II)', appData.convertToBase64("cyberdemon_1.jpg")]);
+      await txn.rawInsert(
+          'INSERT INTO images (id_character, id_demon, id_weapon, name, content) VALUES (?, ?, ?, ?, ?)',
+          [null, 10, null, 'Cyberdemon (Doom 3)', appData.convertToBase64("cyberdemon_2.jpg")]);
+      await txn.rawInsert(
+          'INSERT INTO images (id_character, id_demon, id_weapon, name, content) VALUES (?, ?, ?, ?, ?)',
+          [null, 10, null, 'Cyberdemon (Doom)', appData.convertToBase64("cyberdemon_3.jpg")]);
+      await txn.rawInsert(
+          'INSERT INTO images (id_character, id_demon, id_weapon, name, content) VALUES (?, ?, ?, ?, ?)',
+          [null, 10, null, 'Cyberdemon (Doom Eternal)', appData.convertToBase64("cyberdemon_4.jpg")]);
+      await txn.rawInsert(
+          'INSERT INTO images (id_character, id_demon, id_weapon, name, content) VALUES (?, ?, ?, ?, ?)',
+          [null, 11, null, 'Spider Mastermind (Doom I - II)', appData.convertToBase64("spiderdemon_1.png")]);
+      await txn.rawInsert(
+          'INSERT INTO images (id_character, id_demon, id_weapon, name, content) VALUES (?, ?, ?, ?, ?)',
+          [null, 11, null, 'Spider Mastermind (Doom)', appData.convertToBase64("spiderdemon_2.png")]);
+      await txn.rawInsert(
+          'INSERT INTO images (id_character, id_demon, id_weapon, name, content) VALUES (?, ?, ?, ?, ?)',
+          [null, 12, null, 'Icon of Sin (Doom II)', appData.convertToBase64("baphomet_1.png")]);
+      await txn.rawInsert(
+          'INSERT INTO images (id_character, id_demon, id_weapon, name, content) VALUES (?, ?, ?, ?, ?)',
+          [null, 12, null, 'Icon of Sin (Doom Eternal)', appData.convertToBase64("baphomet_2.jpg")]);
+    });
+
+    // Inserir imatges d'armes
+    await database.transaction((txn) async {
+      await txn.rawInsert(
+          'INSERT INTO images (id_character, id_demon, id_weapon, name, content) VALUES (?, ?, ?, ?, ?)',
+          [null, null, 1, 'Chainsaw (Doom I - II)', appData.convertToBase64("chainsaw_1.png")]);
+      await txn.rawInsert(
+          'INSERT INTO images (id_character, id_demon, id_weapon, name, content) VALUES (?, ?, ?, ?, ?)',
+          [null, null, 1, 'Chainsaw (Doom 3)', appData.convertToBase64("chainsaw_2.png")]);
+      await txn.rawInsert(
+          'INSERT INTO images (id_character, id_demon, id_weapon, name, content) VALUES (?, ?, ?, ?, ?)',
+          [null, null, 1, 'Chainsaw (Doom)', appData.convertToBase64("chainsaw_3.png")]);
+      await txn.rawInsert(
+          'INSERT INTO images (id_character, id_demon, id_weapon, name, content) VALUES (?, ?, ?, ?, ?)',
+          [null, null, 1, 'Chainsaw (Doom Eternal)', appData.convertToBase64("chainsaw_4.jpg")]);
+      await txn.rawInsert(
+          'INSERT INTO images (id_character, id_demon, id_weapon, name, content) VALUES (?, ?, ?, ?, ?)',
+          [null, null, 2, 'Pistol (Doom I - II)', appData.convertToBase64("pistol_1.png")]);
+      await txn.rawInsert(
+          'INSERT INTO images (id_character, id_demon, id_weapon, name, content) VALUES (?, ?, ?, ?, ?)',
+          [null, null, 2, 'Pistol (Doom 3)', appData.convertToBase64("pistol_2.png")]);
+      await txn.rawInsert(
+          'INSERT INTO images (id_character, id_demon, id_weapon, name, content) VALUES (?, ?, ?, ?, ?)',
+          [null, null, 2, 'Pistol (Doom)', appData.convertToBase64("pistol_3.png")]);
+      await txn.rawInsert(
+          'INSERT INTO images (id_character, id_demon, id_weapon, name, content) VALUES (?, ?, ?, ?, ?)',
+          [null, null, 3, 'Shotgun (Doom I - II)', appData.convertToBase64("shotgun_1.png")]);
+      await txn.rawInsert(
+          'INSERT INTO images (id_character, id_demon, id_weapon, name, content) VALUES (?, ?, ?, ?, ?)',
+          [null, null, 3, 'Shotgun (Doom 3)', appData.convertToBase64("shotgun_2.png")]);
+      await txn.rawInsert(
+          'INSERT INTO images (id_character, id_demon, id_weapon, name, content) VALUES (?, ?, ?, ?, ?)',
+          [null, null, 3, 'Shotgun (Doom)', appData.convertToBase64("shotgun_3.png")]);
+      await txn.rawInsert(
+          'INSERT INTO images (id_character, id_demon, id_weapon, name, content) VALUES (?, ?, ?, ?, ?)',
+          [null, null, 3, 'Shotgun (Doom Eternal)', appData.convertToBase64("shotgun_4.png")]);
+      await txn.rawInsert(
+          'INSERT INTO images (id_character, id_demon, id_weapon, name, content) VALUES (?, ?, ?, ?, ?)',
+          [null, null, 4, 'Super Shotgun (Doom I - II)', appData.convertToBase64("ssg_1.png")]);
+      await txn.rawInsert(
+          'INSERT INTO images (id_character, id_demon, id_weapon, name, content) VALUES (?, ?, ?, ?, ?)',
+          [null, null, 4, 'Super Shotgun (Doom 3)', appData.convertToBase64("ssg_2.png")]);
+      await txn.rawInsert(
+          'INSERT INTO images (id_character, id_demon, id_weapon, name, content) VALUES (?, ?, ?, ?, ?)',
+          [null, null, 4, 'Super Shotgun (Doom)', appData.convertToBase64("ssg_3.png")]);
+      await txn.rawInsert(
+          'INSERT INTO images (id_character, id_demon, id_weapon, name, content) VALUES (?, ?, ?, ?, ?)',
+          [null, null, 4, 'Super Shotgun (Doom Eternal)', appData.convertToBase64("ssg_4.jpg")]);
+      await txn.rawInsert(
+          'INSERT INTO images (id_character, id_demon, id_weapon, name, content) VALUES (?, ?, ?, ?, ?)',
+          [null, null, 5, 'Assault Rifle (Doom 3)', appData.convertToBase64("rifle_1.png")]);
+      await txn.rawInsert(
+          'INSERT INTO images (id_character, id_demon, id_weapon, name, content) VALUES (?, ?, ?, ?, ?)',
+          [null, null, 5, 'Assault Rifle (Doom)', appData.convertToBase64("rifle_2.png")]);
+      await txn.rawInsert(
+          'INSERT INTO images (id_character, id_demon, id_weapon, name, content) VALUES (?, ?, ?, ?, ?)',
+          [null, null, 5, 'Assault Rifle (Doom Eternal)', appData.convertToBase64("rifle_3.jpg")]);
+      await txn.rawInsert(
+          'INSERT INTO images (id_character, id_demon, id_weapon, name, content) VALUES (?, ?, ?, ?, ?)',
+          [null, null, 6, 'Chaingun (Doom I - II)', appData.convertToBase64("chaingun_1.png")]);
+      await txn.rawInsert(
+          'INSERT INTO images (id_character, id_demon, id_weapon, name, content) VALUES (?, ?, ?, ?, ?)',
+          [null, null, 6, 'Chaingun (Doom 3)', appData.convertToBase64("chaingun_2.png")]);
+      await txn.rawInsert(
+          'INSERT INTO images (id_character, id_demon, id_weapon, name, content) VALUES (?, ?, ?, ?, ?)',
+          [null, null, 6, 'Chaingun (Doom)', appData.convertToBase64("chaingun_3.png")]);
+      await txn.rawInsert(
+          'INSERT INTO images (id_character, id_demon, id_weapon, name, content) VALUES (?, ?, ?, ?, ?)',
+          [null, null, 6, 'Chaingun (Doom Eternal)', appData.convertToBase64("chaingun_4.png")]);
+      await txn.rawInsert(
+          'INSERT INTO images (id_character, id_demon, id_weapon, name, content) VALUES (?, ?, ?, ?, ?)',
+          [null, null, 7, 'Rocket Launcher (Doom I - II)', appData.convertToBase64("rocket_1.png")]);
+      await txn.rawInsert(
+          'INSERT INTO images (id_character, id_demon, id_weapon, name, content) VALUES (?, ?, ?, ?, ?)',
+          [null, null, 7, 'Rocket Launcher (Doom 3)', appData.convertToBase64("rocket_2.png")]);
+      await txn.rawInsert(
+          'INSERT INTO images (id_character, id_demon, id_weapon, name, content) VALUES (?, ?, ?, ?, ?)',
+          [null, null, 7, 'Rocket Launcher (Doom)', appData.convertToBase64("rocket_3.png")]);
+      await txn.rawInsert(
+          'INSERT INTO images (id_character, id_demon, id_weapon, name, content) VALUES (?, ?, ?, ?, ?)',
+          [null, null, 7, 'Rocket Launcher (Doom Eternal)', appData.convertToBase64("rocket_4.jpg")]);
+      await txn.rawInsert(
+          'INSERT INTO images (id_character, id_demon, id_weapon, name, content) VALUES (?, ?, ?, ?, ?)',
+          [null, null, 8, 'Plasma Rifle (Doom I - II)', appData.convertToBase64("plasma_1.jpg")]);
+      await txn.rawInsert(
+          'INSERT INTO images (id_character, id_demon, id_weapon, name, content) VALUES (?, ?, ?, ?, ?)',
+          [null, null, 8, 'Plasma Rifle (Doom 3)', appData.convertToBase64("plasma_2.jpg")]);
+      await txn.rawInsert(
+          'INSERT INTO images (id_character, id_demon, id_weapon, name, content) VALUES (?, ?, ?, ?, ?)',
+          [null, null, 8, 'Plasma Rifle (Doom)', appData.convertToBase64("plasma_3.jpg")]);
+      await txn.rawInsert(
+          'INSERT INTO images (id_character, id_demon, id_weapon, name, content) VALUES (?, ?, ?, ?, ?)',
+          [null, null, 8, 'Plasma Rifle (Doom Eternal)', appData.convertToBase64("plasma_4.jpg")]);
+      await txn.rawInsert(
+          'INSERT INTO images (id_character, id_demon, id_weapon, name, content) VALUES (?, ?, ?, ?, ?)',
+          [null, null, 8, 'BFG 9000 (Doom I - II)', appData.convertToBase64("bfg_1.png")]);
+      await txn.rawInsert(
+          'INSERT INTO images (id_character, id_demon, id_weapon, name, content) VALUES (?, ?, ?, ?, ?)',
+          [null, null, 8, 'BFG 9000 (Doom 3)', appData.convertToBase64("bfg_2.png")]);
+      await txn.rawInsert(
+          'INSERT INTO images (id_character, id_demon, id_weapon, name, content) VALUES (?, ?, ?, ?, ?)',
+          [null, null, 8, 'BFG 9000 (Doom)', appData.convertToBase64("bfg_3.png")]);
+      await txn.rawInsert(
+          'INSERT INTO images (id_character, id_demon, id_weapon, name, content) VALUES (?, ?, ?, ?, ?)',
+          [null, null, 8, 'BFG 9000 (Doom Eternal)', appData.convertToBase64("bfg_4.png")]);
     });
 
     // Desconnectar
