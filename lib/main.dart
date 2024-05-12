@@ -1,11 +1,15 @@
 import 'dart:io' show Platform;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'package:window_manager/window_manager.dart';
 import 'app_data.dart';
 import 'app.dart';
 
 void main() async {
+  // Initialize sqflite FFI databaseFactory
+  databaseFactory = databaseFactoryFfi;
+
   // For Linux, macOS and Windows, initialize WindowManager
   try {
     if (Platform.isLinux || Platform.isMacOS || Platform.isWindows) {
