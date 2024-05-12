@@ -18,6 +18,7 @@ class LayoutInfoState extends State<LayoutInfo> {
   final AppData appData = AppData();
   bool isBright = true;
   int i = 0;
+  int j = 0;
 
   @override
   void initState() {
@@ -29,14 +30,13 @@ class LayoutInfoState extends State<LayoutInfo> {
   Future<void> _loadImages() async {
     await loadImages();
     if (kDebugMode) {
-      print('Character Images: ${appData.characterImages}');
-      print('Character Names: ${appData.characterNames}');
+      print('Characters: ${appData.characters}');
     }
     setState(() {});
   }
 
   Future<void> loadImages() async {
-    await appData.addImagesById(1);
+    await appData.addCharacters();
     setState(() {});
   }
 
@@ -60,71 +60,77 @@ class LayoutInfoState extends State<LayoutInfo> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(left: 5.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  IconButton(
-                    icon: const Icon(Icons.arrow_back),
-                    color: const Color.fromARGB(255, 200, 13, 0),
-                    onPressed: () {
-                      navigateToLayoutMenu(context);
-                    },
-                  ),
-                  GestureDetector(
-                    onTap: toggleBrightness,
-                    child: Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Icon(
-                        isBright ? CupertinoIcons.lightbulb : CupertinoIcons.lightbulb_slash,
-                        size: 36,
-                        color: isBright ? Colors.black : Colors.white,
-                      ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                IconButton(
+                  icon: const Icon(Icons.arrow_back),
+                  color: const Color.fromARGB(255, 200, 13, 0),
+                  onPressed: () {
+                    navigateToLayoutMenu(context);
+                  },
+                ),
+                GestureDetector(
+                  onTap: toggleBrightness,
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Icon(
+                      isBright ? CupertinoIcons.lightbulb : CupertinoIcons.lightbulb_slash,
+                      size: 36,
+                      color: isBright ? Colors.black : Colors.white,
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
             const Divider(
               color: Color.fromARGB(255, 200, 13, 0),
               thickness: 5,
             ),
-            Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  CupertinoButton(
-                    padding: EdgeInsets.zero,
-                    child: const Icon(
-                      CupertinoIcons.back,
-                      color: Color.fromARGB(255, 200, 13, 0),
-                    ),
-                    onPressed: () {
-                      // Add functionality for the button on the left if needed.
-                    },
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                CupertinoButton(
+                  padding: EdgeInsets.zero,
+                  child: const Icon(
+                    CupertinoIcons.back,
+                    color: Color.fromARGB(255, 200, 13, 0),
                   ),
-                  const Text(
-                    'Characters',
-                    style: TextStyle(
-                      color: Color.fromARGB(255, 200, 13, 0),
-                      fontSize: 28.0,
-                      fontWeight: FontWeight.bold,
-                    ),
+                  onPressed: () {
+                    if (i == 0) {
+                      i = appData.characters.length - 1;
+                    } else {
+                      i--;
+                    }
+                    j = 0;
+                    setState(() {});
+                  },
+                ),
+                const Text(
+                  'Characters',
+                  style: TextStyle(
+                    color: Color.fromARGB(255, 200, 13, 0),
+                    fontSize: 28.0,
+                    fontWeight: FontWeight.bold,
                   ),
-                  CupertinoButton(
-                    padding: EdgeInsets.zero,
-                    child: const Icon(
-                      CupertinoIcons.forward,
-                      color: Color.fromARGB(255, 200, 13, 0),
-                    ),
-                    onPressed: () {
-                      // Add functionality for the button on the right if needed.
-                    },
+                ),
+                CupertinoButton(
+                  padding: EdgeInsets.zero,
+                  child: const Icon(
+                    CupertinoIcons.forward,
+                    color: Color.fromARGB(255, 200, 13, 0),
                   ),
-                ],
-              ),
+                  onPressed: () {
+                    if (i == appData.characters.length - 1) {
+                      i = 0;
+                    } else {
+                      i++;
+                    }
+                    j = 0;
+                    setState(() {});
+                  },
+                ),
+              ],
             ),
             const Divider(
               color: Color.fromARGB(255, 200, 13, 0),
@@ -132,17 +138,14 @@ class LayoutInfoState extends State<LayoutInfo> {
             ),
             Padding(
               padding: const EdgeInsets.all(30.0),
-              child: Container(
+              child: SizedBox(
                 width: 400,
                 height: 230,
-                decoration: BoxDecoration(
-                  border: Border.all(color: const Color.fromARGB(255, 200, 13, 0), width: 5),
-                ),
-                child: Image.asset(appData.characterImages[i]),
+                child: Image.asset(appData.characters[i]['images']![j]),
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(15.0),
+              padding: const EdgeInsets.all(5.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
@@ -153,16 +156,16 @@ class LayoutInfoState extends State<LayoutInfo> {
                       color: Color.fromARGB(255, 200, 13, 0),
                     ),
                     onPressed: () {
-                      if (i == 0) {
-                        i = 3;
+                      if (j == 0) {
+                        j = appData.characters[i]['names']!.length - 1;
                       } else {
-                        i--;
+                        j--;
                       }
                       setState(() {});
                     },
                   ),
                   Text(
-                    appData.characterNames[i],
+                    appData.characters[i]['names']![j],
                     style: const TextStyle(
                       color: Color.fromARGB(255, 200, 13, 0),
                       fontSize: 14.0,
@@ -175,10 +178,10 @@ class LayoutInfoState extends State<LayoutInfo> {
                       color: Color.fromARGB(255, 200, 13, 0),
                     ),
                     onPressed: () {
-                      if (i == appData.characterNames.length - 1) {
-                        i = 0;
+                      if (j == appData.characters[i]['names']!.length - 1) {
+                        j = 0;
                       } else {
-                        i++;
+                        j++;
                       }
                       setState(() {});
                     },
@@ -189,6 +192,20 @@ class LayoutInfoState extends State<LayoutInfo> {
             const Divider(
               color: Color.fromARGB(255, 200, 13, 0),
               thickness: 5,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: Text(
+                'Race: ${appData.characters[i]['race']![0]}\n'
+                'Sex: ${appData.characters[i]['sex']![0]}\n'
+                'Status: ${appData.characters[i]['status']![0]}\n'
+                'Voice Actor: ${appData.characters[i]['voice_actor']![0]}\n\n'
+                '${appData.characters[i]['description']![0]}',
+                style: const TextStyle(
+                  color: Color.fromARGB(255, 200, 13, 0),
+                  fontSize: 14.0,
+                ),
+              ),
             ),
           ],
         ),
