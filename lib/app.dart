@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'layout_demons.dart';
 import 'layout_menu.dart';
 import 'layout_info.dart';
 
 // Main application widget
 class App extends StatefulWidget {
-  const App({Key? key}) : super(key: key);
+  const App({super.key});
 
   @override
   AppState createState() => AppState();
@@ -18,10 +19,11 @@ class AppState extends State<App> {
     // Farem servir la base 'Cupertino'
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: const LayoutInfo(),
+      home: const LayoutDemons(),
       routes: {
         'menu': (context) => const LayoutMenu(),
-        'info': (context) => const LayoutInfo()
+        'info': (context) => const LayoutInfo(),
+        'demons': (context) => const LayoutDemons(),
       },
     );
   }

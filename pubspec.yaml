@@ -79,6 +79,47 @@ flutter:
     - assets/characters/slayer_4.jpg
     - assets/characters/vega_1.jpg
     - assets/characters/vega_2.png
+    - assets/demons/arachnotron_1.png
+    - assets/demons/arachnotron_2.jpg
+    - assets/demons/baphomet_1.png
+    - assets/demons/baphomet_2.jpg
+    - assets/demons/baron_1.png
+    - assets/demons/baron_2.png
+    - assets/demons/baron_3.jpg
+    - assets/demons/cacodemon_1.png
+    - assets/demons/cacodemon_2.png
+    - assets/demons/cacodemon_3.png
+    - assets/demons/cacodemon_4.png
+    - assets/demons/cyberdemon_1.png
+    - assets/demons/cyberdemon_2.png
+    - assets/demons/cyberdemon_3.png
+    - assets/demons/cyberdemon_4.png
+    - assets/demons/imp_1.png
+    - assets/demons/imp_2.png
+    - assets/demons/imp_3.png
+    - assets/demons/imp_4.jpg
+    - assets/demons/knight_1.png
+    - assets/demons/knight_2.png
+    - assets/demons/knight_3.png
+    - assets/demons/knight_4.jpg
+    - assets/demons/mancubus_1.png
+    - assets/demons/mancubus_2.png
+    - assets/demons/mancubus_3.png
+    - assets/demons/mancubus_4.jpg
+    - assets/demons/pinky_1.png
+    - assets/demons/pinky_2.png
+    - assets/demons/pinky_3.png
+    - assets/demons/pinky_4.jpg
+    - assets/demons/revenant_1.png
+    - assets/demons/revenant_2.png
+    - assets/demons/revenant_3.png
+    - assets/demons/revenant_4.jpg
+    - assets/demons/spiderdemon_1.png
+    - assets/demons/spiderdemon_2.png
+    - assets/demons/zombieman_1.png
+    - assets/demons/zombieman_2.png
+    - assets/demons/zombieman_3.png
+    - assets/demons/zombieman_4.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
