@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
@@ -16,11 +17,27 @@ class LayoutInfo extends StatefulWidget {
 class LayoutInfoState extends State<LayoutInfo> {
   final AppData appData = AppData();
   bool isBright = true;
+  int i = 0;
 
   @override
   void initState() {
     super.initState();
     initDatabase();
+    _loadImages();
+  }
+
+  Future<void> _loadImages() async {
+    await loadImages();
+    if (kDebugMode) {
+      print('Character Images: ${appData.characterImages}');
+      print('Character Names: ${appData.characterNames}');
+    }
+    setState(() {});
+  }
+
+  Future<void> loadImages() async {
+    await appData.addImagesById(1);
+    setState(() {});
   }
 
   void toggleBrightness() {
@@ -113,10 +130,16 @@ class LayoutInfoState extends State<LayoutInfo> {
               color: Color.fromARGB(255, 200, 13, 0),
               thickness: 5,
             ),
-            Image.asset(
-              './assets/characters/slayer_1.jpg',
-              width: 400,
-              height: 400,
+            Padding(
+              padding: const EdgeInsets.all(30.0),
+              child: Container(
+                width: 400,
+                height: 230,
+                decoration: BoxDecoration(
+                  border: Border.all(color: const Color.fromARGB(255, 200, 13, 0), width: 5),
+                ),
+                child: Image.asset(appData.characterImages[i]),
+              ),
             ),
             Padding(
               padding: const EdgeInsets.all(15.0),
@@ -130,12 +153,17 @@ class LayoutInfoState extends State<LayoutInfo> {
                       color: Color.fromARGB(255, 200, 13, 0),
                     ),
                     onPressed: () {
-                      // Add functionality for the button on the left if needed.
+                      if (i == 0) {
+                        i = 3;
+                      } else {
+                        i--;
+                      }
+                      setState(() {});
                     },
                   ),
-                  const Text(
-                    'Doom Slayer (Doom I - II)',
-                    style: TextStyle(
+                  Text(
+                    appData.characterNames[i],
+                    style: const TextStyle(
                       color: Color.fromARGB(255, 200, 13, 0),
                       fontSize: 14.0,
                     ),
@@ -147,7 +175,12 @@ class LayoutInfoState extends State<LayoutInfo> {
                       color: Color.fromARGB(255, 200, 13, 0),
                     ),
                     onPressed: () {
-                      // Add functionality for the button on the right if needed.
+                      if (i == appData.characterNames.length - 1) {
+                        i = 0;
+                      } else {
+                        i++;
+                      }
+                      setState(() {});
                     },
                   ),
                 ],
