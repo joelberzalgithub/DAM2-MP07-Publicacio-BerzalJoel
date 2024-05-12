@@ -1,5 +1,12 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import 'app_data.dart';
+import 'layout_characters.dart';
+import 'layout_demons.dart';
+import 'layout_weapons.dart';
 
 class LayoutMenu extends StatefulWidget {
   const LayoutMenu({super.key});
@@ -9,6 +16,35 @@ class LayoutMenu extends StatefulWidget {
 }
 
 class LayoutMenuState extends State<LayoutMenu> {
+  final AppData appData = AppData();
+
+  void toggleBrightness() {
+    setState(() {
+      appData.isBright = !appData.isBright;
+    });
+  }
+  
+  void navigateToLayoutCharacters(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const LayoutCharacters()),
+    );
+  }
+
+  void navigateToLayoutDemons(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const LayoutDemons()),
+    );
+  }
+
+  void navigateToLayoutWeapons(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const LayoutWeapons()),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,8 +52,36 @@ class LayoutMenuState extends State<LayoutMenu> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                IconButton(
+                  icon: const Icon(Icons.exit_to_app_rounded),
+                  iconSize: 40.0,
+                  color: const Color.fromARGB(255, 200, 13, 0),
+                  onPressed: () {
+                    exit(0);
+                  },
+                ),
+                GestureDetector(
+                  onTap: toggleBrightness,
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Icon(
+                      appData.isBright ? CupertinoIcons.lightbulb : CupertinoIcons.lightbulb_slash,
+                      size: 36,
+                      color: appData.isBright ? Colors.black : Colors.white,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            const Divider(
+              color: Color.fromARGB(255, 200, 13, 0),
+              thickness: 5,
+            ),
             const Padding(
-              padding: EdgeInsets.all(20.0),
+              padding: EdgeInsets.all(15.0),
               child: Text(
                 'The DOOM Guide',
                 style: TextStyle(color: Color.fromARGB(255, 200, 13, 0), fontSize: 24.0, fontWeight: FontWeight.bold),
@@ -32,12 +96,12 @@ class LayoutMenuState extends State<LayoutMenu> {
               child: Image.asset(
                 './assets/menu.jpg',
                 width: 400,
-                height: 400,
+                height: 275,
               ),
             ),
             CupertinoButton(
               onPressed: () {
-                // Handle button press for option 1
+                navigateToLayoutCharacters(context);
               },
               color: const Color.fromARGB(255, 200, 13, 0),
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -59,7 +123,7 @@ class LayoutMenuState extends State<LayoutMenu> {
             const SizedBox(height: 20),
             CupertinoButton(
               onPressed: () {
-                // Handle button press for option 2
+                navigateToLayoutDemons(context);
               },
               color: const Color.fromARGB(255, 200, 13, 0),
               padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
@@ -81,7 +145,7 @@ class LayoutMenuState extends State<LayoutMenu> {
             const SizedBox(height: 20),
             CupertinoButton(
               onPressed: () {
-                // Handle button press for option 3
+                navigateToLayoutWeapons(context);
               },
               color: const Color.fromARGB(255, 200, 13, 0),
               padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
@@ -100,9 +164,23 @@ class LayoutMenuState extends State<LayoutMenu> {
                 ],
               ),
             ),
+            const SizedBox(height: 40),
+            const Divider(
+              color: Color.fromARGB(255, 200, 13, 0),
+              thickness: 5,
+            ),
+            const SizedBox(height: 15),
+            const Text(
+              'A Flutter app by BerzalJoel',
+              style: TextStyle(
+                color: Color.fromARGB(255, 200, 13, 0),
+                fontSize: 14.0,
+              ),
+            ),
           ],
         ),
       ),
+      backgroundColor: appData.isBright ? Colors.white : Colors.black,
     );
   }
 }

@@ -14,7 +14,6 @@ class LayoutWeapons extends StatefulWidget {
 
 class LayoutWeaponsState extends State<LayoutWeapons> {
   final AppData appData = AppData();
-  bool isBright = true;
   int i = 0;
   int j = 0;
 
@@ -40,7 +39,7 @@ class LayoutWeaponsState extends State<LayoutWeapons> {
 
   void toggleBrightness() {
     setState(() {
-      isBright = !isBright;
+      appData.isBright = !appData.isBright;
     });
   }
 
@@ -73,9 +72,9 @@ class LayoutWeaponsState extends State<LayoutWeapons> {
                   child: Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: Icon(
-                      isBright ? CupertinoIcons.lightbulb : CupertinoIcons.lightbulb_slash,
+                      appData.isBright ? CupertinoIcons.lightbulb : CupertinoIcons.lightbulb_slash,
                       size: 36,
-                      color: isBright ? Colors.black : Colors.white,
+                      color: appData.isBright ? Colors.black : Colors.white,
                     ),
                   ),
                 ),
@@ -208,7 +207,7 @@ class LayoutWeaponsState extends State<LayoutWeapons> {
           ],
         ),
       ),
-      backgroundColor: isBright ? Colors.white : Colors.black,
+      backgroundColor: appData.isBright ? Colors.white : Colors.black,
     );
   }
 }
