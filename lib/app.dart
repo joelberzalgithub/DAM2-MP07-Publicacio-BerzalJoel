@@ -1,5 +1,5 @@
-import 'package:dam2_mp07_publicacio/layout_characters.dart';
 import 'package:flutter/material.dart';
+import 'layout_characters.dart';
 import 'layout_demons.dart';
 import 'layout_menu.dart';
 import 'layout_weapons.dart';
