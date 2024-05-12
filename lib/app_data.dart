@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/foundation.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
@@ -137,6 +139,71 @@ class AppData with ChangeNotifier {
     });
   }
 
+  Future<void> addWeapons() async {
+    String dbPath = join(await getDatabasesPath(), 'doom.db');
+    
+    Database database = await openDatabase(
+      dbPath,
+      version: 1,
+    );
+
+    await database.transaction((txn) async {
+      for (int id = 1; id < 10; id++) {
+        List<String> weaponTypes = [];
+        List<String> weaponFires = [];
+        List<String> weaponAmmo = [];
+        List<int> weaponDamages = [];
+        List<String> weaponDescriptions = [];
+        List<String> weaponImages = [];
+        List<String> weaponNames = [];
+        
+        List<Map<String, dynamic>> weapon = await txn.rawQuery(
+          'SELECT type, fire_mode, ammo_type, damage, description '
+          'FROM weapons '
+          'WHERE id = $id'
+        );
+
+        for (Map<String, dynamic> row in weapon) {
+          if (!weaponTypes.contains(row['type']) && !weaponFires.contains(row['fire_mode']) && !weaponAmmo.contains(row['ammo_type']) &&
+              !weaponDamages.contains(row['damage']) && !weaponDescriptions.contains(row['description'])) {
+            weaponTypes.add(row['type']);
+            weaponFires.add(row['fire_mode']);
+            weaponAmmo.add(row['ammo_type']);
+            weaponDamages.add(row['damage'] as int);
+            weaponDescriptions.add(row['description']);
+          }
+        }
+        
+        List<Map<String, dynamic>> images = await txn.rawQuery(
+          'SELECT content, name '
+          'FROM images '
+          'WHERE id_weapon = $id'
+        );
+
+        for (Map<String, dynamic> row in images) {
+          if (!weaponImages.contains('./assets/weapons/${row['content']}') &&!weaponNames.contains(row['name'])) {
+            weaponImages.add('./assets/weapons/${row['content']}');
+            weaponNames.add(row['name']);
+          }
+        }
+
+        weapons.add({
+          'type': weaponTypes,
+          'fire_mode': weaponFires,
+          'ammo_type': weaponAmmo,
+          'damage': weaponDamages.map((e) => e.toString()).toList(),
+          'description': weaponDescriptions,
+          'images': weaponImages,
+          'names': weaponNames,
+        });
+      }
+    }).catchError((error) {
+      if (kDebugMode) {
+        print('Error opening database: $error');
+      }
+    });
+  }
+
   Future<void> initDatabase() async {
     String dbPath = join(await getDatabasesPath(), 'doom.db');
 
@@ -165,11 +232,11 @@ class AppData with ChangeNotifier {
         // Crear una nova taula Demons
         await db.execute(
             'CREATE TABLE IF NOT EXISTS demons (id INTEGER PRIMARY KEY AUTOINCREMENT, '
-                                                  'class TEXT, '
-                                                  'rank TEXT, '
-                                                  'health_points INTEGER, '
-                                                  'damage INTEGER, '
-                                                  'description TEXT);');
+                                                'class TEXT, '
+                                                'rank TEXT, '
+                                                'health_points INTEGER, '
+                                                'damage INTEGER, '
+                                                'description TEXT);');
         
         // Esborrar la taula Weapons (si existeix)
         await db.execute(
@@ -178,11 +245,11 @@ class AppData with ChangeNotifier {
         // Crear una nova taula Weapons
         await db.execute(
             'CREATE TABLE IF NOT EXISTS weapons (id INTEGER PRIMARY KEY AUTOINCREMENT, '
-                                                  'type TEXT, '
-                                                  'fire_mode TEXT, '
-                                                  'ammo_type TEXT, '
-                                                  'damage INTEGER, '
-                                                  'description TEXT);');
+                                                'type TEXT, '
+                                                'fire_mode TEXT, '
+                                                'ammo_type TEXT, '
+                                                'damage INTEGER, '
+                                                'description TEXT);');
         
         // Esborrar la taula Images (si existeix)
         await db.execute(
@@ -265,13 +332,13 @@ class AppData with ChangeNotifier {
     await database.transaction((txn) async {
       await txn.rawInsert(
           'INSERT INTO weapons (type, fire_mode, ammo_type, damage, description) VALUES (?, ?, ?, ?, ?)',
-          ['Melee', null, null, 20, 'The chainsaw (uncommonly referred to as "The Great Communicator") is a melee-based weapon that has appeared in every Doom title in the series. This weapon mutilates enemies close enough to contact. At 525 hits per minute, it''s roughly a quadruple-speed fist. It is often used because it conserves ammo, while its "rapid fire" works well on enemies with high pain chance, which minimizes damage in melee situations. The Classic Doom chainsaws brand name is from Beartooth/Eagle Beaver(McCulloch), while the Doom 3 chainsaw is by Mixom, and the 2016''s brand name is Painsaw, an unknown brand name.']);
+          ['Melee', 'None', 'None', 20, 'The chainsaw (uncommonly referred to as "The Great Communicator") is a melee-based weapon that has appeared in every Doom title in the series. This weapon mutilates enemies close enough to contact. At 525 hits per minute, it''s roughly a quadruple-speed fist. It is often used because it conserves ammo, while its "rapid fire" works well on enemies with high pain chance, which minimizes damage in melee situations.']);
       await txn.rawInsert(
           'INSERT INTO weapons (type, fire_mode, ammo_type, damage, description) VALUES (?, ?, ?, ?, ?)',
           ['Handgun', 'Semi-Automatic', 'Bullets', 15, 'The pistol is the player''s default weapon, and fires bullets. Each player enters the game with a pistol, fifty bullets, and their fists, with the pistol selected as the active weapon. It uses the same ammunition as the chaingun. None of the monsters carry a pistol, though the Zombieman appears to be armed with a rifle that fires pistol bullets.']);
       await txn.rawInsert(
           'INSERT INTO weapons (type, fire_mode, ammo_type, damage, description) VALUES (?, ?, ?, ?, ?)',
-          ['Shotgun', 'Pump-Action', 'Shells', 105, 'The shotgun (aka Pump Shotgun) is one of the most versatile and useful weapons in the Doom player''s arsenal, equipped in every classic Doom game. It''s a pump-action shotgun with a wooden stock. It has an old-fashioned look and is first found in a secret area of E1M1: Hangar (or possibly taken from a Shotgun Guy on the upper two skill levels), then in a non-secret area on E1M2: Nuclear Plant. A shotgun contains 8 shells when picked up. Shotguns looted from the corpses of shotgun wielding zombies contain 4 shells and, unlike pre-existing shotguns, disappear when crushed beneath doors or moving ceilings.']);
+          ['Shotgun', 'Pump-Action', 'Shells', 105, 'The shotgun (aka Pump Shotgun) is one of the most versatile and useful weapons in the Doom player''s arsenal, equipped in every classic Doom game. It''s a pump-action shotgun with a wooden stock. A shotgun contains 8 shells when picked up. Shotguns looted from the corpses of shotgun wielding zombies contain 4 shells and, unlike pre-existing shotguns, disappear when crushed beneath doors or moving ceilings.']);
       await txn.rawInsert(
           'INSERT INTO weapons (type, fire_mode, ammo_type, damage, description) VALUES (?, ?, ?, ?, ?)',
           ['Shotgun', 'Double', 'Shells', 310, 'The super shotgun is a sawed-off, break-action, double-barreled shotgun in contrast to the original shotgun which is pump-action and single-barreled. In Doom Eternal this weapon has an additional feature in the form of the Meat Hook. This functions as a grappling hook, allowing the Doom Slayer to grapple onto enemies and drag himself towards them for a devastating close-range blast.']);
@@ -463,7 +530,7 @@ class AppData with ChangeNotifier {
           [null, null, 1, 'Chainsaw (Doom I - II)', "chainsaw_1.png"]);
       await txn.rawInsert(
           'INSERT INTO images (id_character, id_demon, id_weapon, name, content) VALUES (?, ?, ?, ?, ?)',
-          [null, null, 1, 'Chainsaw (Doom 3)', "chainsaw_2.png"]);
+          [null, null, 1, 'Chainsaw (Doom 3)', "chainsaw_2.jpg"]);
       await txn.rawInsert(
           'INSERT INTO images (id_character, id_demon, id_weapon, name, content) VALUES (?, ?, ?, ?, ?)',
           [null, null, 1, 'Chainsaw (Doom)', "chainsaw_3.png"]);
@@ -538,28 +605,28 @@ class AppData with ChangeNotifier {
           [null, null, 7, 'Rocket Launcher (Doom Eternal)', "rocket_4.jpg"]);
       await txn.rawInsert(
           'INSERT INTO images (id_character, id_demon, id_weapon, name, content) VALUES (?, ?, ?, ?, ?)',
-          [null, null, 8, 'Plasma Rifle (Doom I - II)', "plasma_1.jpg"]);
+          [null, null, 8, 'Plasma Rifle (Doom I - II)', "plasma_1.png"]);
       await txn.rawInsert(
           'INSERT INTO images (id_character, id_demon, id_weapon, name, content) VALUES (?, ?, ?, ?, ?)',
-          [null, null, 8, 'Plasma Rifle (Doom 3)', "plasma_2.jpg"]);
+          [null, null, 8, 'Plasma Rifle (Doom 3)', "plasma_2.png"]);
       await txn.rawInsert(
           'INSERT INTO images (id_character, id_demon, id_weapon, name, content) VALUES (?, ?, ?, ?, ?)',
-          [null, null, 8, 'Plasma Rifle (Doom)', "plasma_3.jpg"]);
+          [null, null, 8, 'Plasma Rifle (Doom)', "plasma_3.png"]);
       await txn.rawInsert(
           'INSERT INTO images (id_character, id_demon, id_weapon, name, content) VALUES (?, ?, ?, ?, ?)',
           [null, null, 8, 'Plasma Rifle (Doom Eternal)', "plasma_4.jpg"]);
       await txn.rawInsert(
           'INSERT INTO images (id_character, id_demon, id_weapon, name, content) VALUES (?, ?, ?, ?, ?)',
-          [null, null, 8, 'BFG 9000 (Doom I - II)', "bfg_1.png"]);
+          [null, null, 9, 'BFG 9000 (Doom I - II)', "bfg_1.png"]);
       await txn.rawInsert(
           'INSERT INTO images (id_character, id_demon, id_weapon, name, content) VALUES (?, ?, ?, ?, ?)',
-          [null, null, 8, 'BFG 9000 (Doom 3)', "bfg_2.png"]);
+          [null, null, 9, 'BFG 9000 (Doom 3)', "bfg_2.png"]);
       await txn.rawInsert(
           'INSERT INTO images (id_character, id_demon, id_weapon, name, content) VALUES (?, ?, ?, ?, ?)',
-          [null, null, 8, 'BFG 9000 (Doom)', "bfg_3.png"]);
+          [null, null, 9, 'BFG 9000 (Doom)', "bfg_3.png"]);
       await txn.rawInsert(
           'INSERT INTO images (id_character, id_demon, id_weapon, name, content) VALUES (?, ?, ?, ?, ?)',
-          [null, null, 8, 'BFG 9000 (Doom Eternal)', "bfg_4.png"]);
+          [null, null, 9, 'BFG 9000 (Doom Eternal)', "bfg_4.png"]);
     });
 
     // Desconnectar

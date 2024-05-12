@@ -120,6 +120,40 @@ flutter:
     - assets/demons/zombieman_2.png
     - assets/demons/zombieman_3.png
     - assets/demons/zombieman_4.jpg
+    - assets/weapons/bfg_1.png
+    - assets/weapons/bfg_2.png
+    - assets/weapons/bfg_3.png
+    - assets/weapons/bfg_4.png
+    - assets/weapons/chaingun_1.png
+    - assets/weapons/chaingun_2.png
+    - assets/weapons/chaingun_3.png
+    - assets/weapons/chaingun_4.png
+    - assets/weapons/chainsaw_1.png
+    - assets/weapons/chainsaw_2.jpg
+    - assets/weapons/chainsaw_3.png
+    - assets/weapons/chainsaw_4.jpg
+    - assets/weapons/pistol_1.png
+    - assets/weapons/pistol_2.png
+    - assets/weapons/pistol_3.png
+    - assets/weapons/plasma_1.png
+    - assets/weapons/plasma_2.png
+    - assets/weapons/plasma_3.png
+    - assets/weapons/plasma_4.jpg
+    - assets/weapons/rifle_1.png
+    - assets/weapons/rifle_2.png
+    - assets/weapons/rifle_3.jpg
+    - assets/weapons/rocket_1.png
+    - assets/weapons/rocket_2.png
+    - assets/weapons/rocket_3.png
+    - assets/weapons/rocket_4.jpg
+    - assets/weapons/shotgun_1.png
+    - assets/weapons/shotgun_2.png
+    - assets/weapons/shotgun_3.png
+    - assets/weapons/shotgun_4.png
+    - assets/weapons/ssg_1.png
+    - assets/weapons/ssg_2.png
+    - assets/weapons/ssg_3.png
+    - assets/weapons/ssg_4.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

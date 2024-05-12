@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'layout_demons.dart';
 import 'layout_menu.dart';
 import 'layout_info.dart';
+import 'layout_weapons.dart';
 
 // Main application widget
 class App extends StatefulWidget {
@@ -19,11 +20,12 @@ class AppState extends State<App> {
     // Farem servir la base 'Cupertino'
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: const LayoutDemons(),
+      home: const LayoutWeapons(),
       routes: {
         'menu': (context) => const LayoutMenu(),
         'info': (context) => const LayoutInfo(),
         'demons': (context) => const LayoutDemons(),
+        'weapons': (context) => const LayoutWeapons(),
       },
     );
   }
