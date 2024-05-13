@@ -20,8 +20,15 @@ class LayoutCharactersState extends State<LayoutCharacters> {
   @override
   void initState() {
     super.initState();
-    appData.initDatabase();
-    _loadImages();
+    _initializeData();
+  }
+
+  Future<void> _initializeData() async {
+    await appData.initDatabase();
+    if (kDebugMode) {
+      print('DDBB initialized!');
+    }
+    await _loadImages();
   }
 
   Future<void> _loadImages() async {
