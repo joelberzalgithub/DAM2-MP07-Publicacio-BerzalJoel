@@ -171,7 +171,7 @@ class LayoutMenuState extends State<LayoutMenu> {
             ),
             const SizedBox(height: 15),
             const Text(
-              'A Flutter app by BerzalJoel',
+              'A Flutter app by JBA',
               style: TextStyle(
                 color: Color.fromARGB(255, 200, 13, 0),
                 fontSize: 14.0,
