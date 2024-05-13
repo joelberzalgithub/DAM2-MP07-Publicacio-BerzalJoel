@@ -14,6 +14,7 @@ class LayoutCharacters extends StatefulWidget {
 
 class LayoutCharactersState extends State<LayoutCharacters> {
   final AppData appData = AppData();
+  bool isLoading = true;
   int i = 0;
   int j = 0;
 
@@ -26,7 +27,7 @@ class LayoutCharactersState extends State<LayoutCharacters> {
   Future<void> _initializeData() async {
     await appData.initDatabase();
     if (kDebugMode) {
-      print('DDBB initialized!');
+      print('\nDDBB initialized!\n');
     }
     await _loadImages();
   }
@@ -36,7 +37,9 @@ class LayoutCharactersState extends State<LayoutCharacters> {
     if (kDebugMode) {
       print('Characters: ${appData.characters}');
     }
-    setState(() {});
+    setState(() {
+      isLoading = false;
+    });
   }
 
   Future<void> loadImages() async {
@@ -59,6 +62,14 @@ class LayoutCharactersState extends State<LayoutCharacters> {
   
   @override
   Widget build(BuildContext context) {
+    if (isLoading) {
+      return const Scaffold(
+        body: Center(
+          child: CircularProgressIndicator(color: Color.fromARGB(255, 200, 13, 0), strokeWidth: 50.0,),
+        ),
+      );
+    }
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(

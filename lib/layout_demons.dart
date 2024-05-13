@@ -14,14 +14,22 @@ class LayoutDemons extends StatefulWidget {
 
 class LayoutDemonsState extends State<LayoutDemons> {
   final AppData appData = AppData();
+  bool isLoading = true;
   int i = 0;
   int j = 0;
 
   @override
   void initState() {
     super.initState();
-    appData.initDatabase();
-    _loadImages();
+    _initializeData();
+  }
+
+  Future<void> _initializeData() async {
+    await appData.initDatabase();
+    if (kDebugMode) {
+      print('\nDDBB initialized!\n');
+    }
+    await _loadImages();
   }
 
   Future<void> _loadImages() async {
@@ -29,7 +37,9 @@ class LayoutDemonsState extends State<LayoutDemons> {
     if (kDebugMode) {
       print('Demons: ${appData.demons}');
     }
-    setState(() {});
+    setState(() {
+      isLoading = false;
+    });
   }
 
   Future<void> loadImages() async {
@@ -52,6 +62,14 @@ class LayoutDemonsState extends State<LayoutDemons> {
 
   @override
   Widget build(BuildContext context) {
+    if (isLoading) {
+      return const Scaffold(
+        body: Center(
+          child: CircularProgressIndicator(color: Color.fromARGB(255, 200, 13, 0), strokeWidth: 50.0,),
+        ),
+      );
+    }
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
