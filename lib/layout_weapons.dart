@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'app_data.dart';
 import 'layout_menu.dart';
@@ -13,43 +13,13 @@ class LayoutWeapons extends StatefulWidget {
 }
 
 class LayoutWeaponsState extends State<LayoutWeapons> {
-  final AppData appData = AppData();
-  bool isLoading = true;
+  bool isBright = true;
   int i = 0;
   int j = 0;
 
-  @override
-  void initState() {
-    super.initState();
-    _initializeData();
-  }
-
-  Future<void> _initializeData() async {
-    await appData.initDatabase();
-    if (kDebugMode) {
-      print('\nDDBB initialized!\n');
-    }
-    await _loadImages();
-  }
-
-  Future<void> _loadImages() async {
-    await loadImages();
-    if (kDebugMode) {
-      print('Weapons: ${appData.weapons}');
-    }
-    setState(() {
-      isLoading = false;
-    });
-  }
-
-  Future<void> loadImages() async {
-    await appData.addWeapons();
-    setState(() {});
-  }
-
   void toggleBrightness() {
     setState(() {
-      appData.isBright = !appData.isBright;
+      isBright = !isBright;
     });
   }
 
@@ -62,14 +32,7 @@ class LayoutWeaponsState extends State<LayoutWeapons> {
 
   @override
   Widget build(BuildContext context) {
-    if (isLoading) {
-      return const Scaffold(
-        body: Center(
-          child: CircularProgressIndicator(color: Color.fromARGB(255, 200, 13, 0), strokeWidth: 50.0,),
-        ),
-      );
-    }
-
+    final appData = Provider.of<AppData>(context);
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -90,9 +53,9 @@ class LayoutWeaponsState extends State<LayoutWeapons> {
                   child: Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: Icon(
-                      appData.isBright ? CupertinoIcons.lightbulb : CupertinoIcons.lightbulb_slash,
+                      isBright ? CupertinoIcons.lightbulb : CupertinoIcons.lightbulb_slash,
                       size: 36,
-                      color: appData.isBright ? Colors.black : Colors.white,
+                      color: isBright ? Colors.black : Colors.white,
                     ),
                   ),
                 ),
@@ -225,7 +188,7 @@ class LayoutWeaponsState extends State<LayoutWeapons> {
           ],
         ),
       ),
-      backgroundColor: appData.isBright ? Colors.white : Colors.black,
+      backgroundColor: isBright ? Colors.white : Colors.black,
     );
   }
 }

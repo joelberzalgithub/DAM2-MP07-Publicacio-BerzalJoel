@@ -3,7 +3,6 @@ import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
 class AppData with ChangeNotifier {
-  bool isBright = true;
   List<Map<String, List<String>>> characters = [];
   List<Map<String, List<String>>> demons = [];
   List<Map<String, List<String>>> weapons = [];

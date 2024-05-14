@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'app_data.dart';
 import 'layout_characters.dart';
 import 'layout_demons.dart';
 import 'layout_weapons.dart';
@@ -16,11 +15,11 @@ class LayoutMenu extends StatefulWidget {
 }
 
 class LayoutMenuState extends State<LayoutMenu> {
-  final AppData appData = AppData();
+  bool isBright = true;
 
   void toggleBrightness() {
     setState(() {
-      appData.isBright = !appData.isBright;
+      isBright = !isBright;
     });
   }
   
@@ -68,9 +67,9 @@ class LayoutMenuState extends State<LayoutMenu> {
                   child: Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: Icon(
-                      appData.isBright ? CupertinoIcons.lightbulb : CupertinoIcons.lightbulb_slash,
+                      isBright ? CupertinoIcons.lightbulb : CupertinoIcons.lightbulb_slash,
                       size: 36,
-                      color: appData.isBright ? Colors.black : Colors.white,
+                      color: isBright ? Colors.black : Colors.white,
                     ),
                   ),
                 ),
@@ -180,7 +179,7 @@ class LayoutMenuState extends State<LayoutMenu> {
           ],
         ),
       ),
-      backgroundColor: appData.isBright ? Colors.white : Colors.black,
+      backgroundColor: isBright ? Colors.white : Colors.black,
     );
   }
 }

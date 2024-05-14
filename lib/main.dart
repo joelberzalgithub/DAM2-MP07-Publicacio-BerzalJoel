@@ -22,10 +22,17 @@ void main() async {
     print(e);
   }
 
-  // Define the app as a ChangeNotifierProvider
+  // Create the AppData instance and initialize database and lists
+  final appData = AppData();
+  await appData.initDatabase();
+  await appData.addCharacters();
+  await appData.addDemons();
+  await appData.addWeapons();
+
+  // Define the app as a ChangeNotifierProvider with the same instance of AppData
   runApp(
-    ChangeNotifierProvider(
-      create: (context) => AppData(),
+    ChangeNotifierProvider.value(
+      value: appData,
       child: const App(),
     ),
   );
