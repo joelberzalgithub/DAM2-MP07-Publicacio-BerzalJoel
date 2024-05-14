@@ -1,6 +1,11 @@
 # DAM2-MP07-Publicacio-BerzalJoel
+## The DOOM Guide
 
-A new Flutter project.
+A small Flutter project based on the DOOM videogame franchise. This app displays a menu that allows the user to choose which kind of information they want to see.
+
+Clicking one of the option buttons will display an info layout that will show the attributes and characteristics of the characters, enemies, or weapons (depending on which option the user has selected). The layout will also display its image and name, which can be changed depending on weather the character, enemy, or weapon displayed has appeared in more than one game.
+
+The release of this project can be downloaded here: [The DOOM Guide](https://github.com/joelberzalgithub/DAM2-MP07-Publicacio-BerzalJoel/releases/tag/release)
 
 ## Getting Started
 
