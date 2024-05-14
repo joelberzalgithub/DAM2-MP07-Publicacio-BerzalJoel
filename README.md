@@ -1,4 +1,4 @@
-# dam2_mp07_publicacio
+# DAM2-MP07-Publicacio-BerzalJoel
 
 A new Flutter project.
 
